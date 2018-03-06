@@ -2,6 +2,9 @@
 本代码集成了SpringBoot+MyBatis+Redis+MySql。
 最新的部分经网友指正已经把冗余的代码去掉了，大家clone到本地后直接转成maven项目应该就可以运行了，项目中使用到的数据库表如下
 
+1.修改了application.yml中未使用原生配置项的问题
+
+2.redis的配置可以使用redisTemplate，也可以使用RedisConfig和RediscoverUtil，两者并没有太大区别，只是RedisTemplate用借口的形式。
 -- ----------------------------
 -- Table structure for `user_info`
 -- ----------------------------
@@ -16,5 +19,5 @@ CREATE TABLE `user_info` (
 -- ----------------------------
 -- Records of user_info
 -- ----------------------------
-INSERT INTO `user_info` VALUES ('1', 'xiaour', '1231');
+INSERT INTO `user_info` VALUES ('1', 'xiaour', '25');
 
