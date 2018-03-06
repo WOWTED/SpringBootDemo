@@ -1,6 +1,7 @@
 package com.xiaour.spring.boot.controller;
 
 
+import com.xiaour.spring.boot.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.xiaour.spring.boot.entity.UserInfo;
 import com.xiaour.spring.boot.mapper.UserInfoMapper;
 import com.xiaour.spring.boot.utils.JsonUtil;
-import com.xiaour.spring.boot.utils.RedisUtil;
 
 
 /**
@@ -20,7 +20,7 @@ import com.xiaour.spring.boot.utils.RedisUtil;
 public class TestCtrl {
 	
 	@Autowired
-	private RedisUtil redisUtil;
+	private RedisService redisService;
 	
 	@Autowired  
     private UserInfoMapper userInfoMapper;  
@@ -38,8 +38,8 @@ public class TestCtrl {
      * @throws Exception
      */
     @RequestMapping("/set")  
-    public String set(String key, String value) throws Exception{  
-    	redisUtil.set(key, value);  
+    public String set(String key, String value) throws Exception{
+        redisService.set(key, value);
         return "success";  
     }  
     
@@ -51,7 +51,7 @@ public class TestCtrl {
     @RequestMapping("/get")  
     public String get(String key){  
         try {
-			return redisUtil.get(key);
+			return redisService.get(key);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

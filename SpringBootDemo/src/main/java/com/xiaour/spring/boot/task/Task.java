@@ -10,6 +10,6 @@ public class Task {
 	
     @Scheduled(cron="0 0/1 * * * ?")
 	public void run(){
-		System.out.println("定时任务执行");
+		System.out.println("Scheduled Running...");
 	}
 }
