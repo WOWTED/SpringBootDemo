@@ -4,7 +4,10 @@
 
 1.修改了application.yml中未使用原生配置项的问题
 
-2.redis的配置可以使用redisTemplate，也可以使用RedisConfig和RediscoverUtil，两者并没有太大区别，只是RedisTemplate用借口的形式。
+2.redis的配置可以使用redisTemplate，也可以使用RedisConfig和RediscoverUtil，两者并没有太大区别，只是RedisTemplate用接口。
+
+3.MyBatis的配置放到了Resource下面。
+
 -- ----------------------------
 -- Table structure for `user_info`
 -- ----------------------------
