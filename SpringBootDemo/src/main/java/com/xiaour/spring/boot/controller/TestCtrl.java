@@ -39,6 +39,7 @@ public class TestCtrl {
      */
     @RequestMapping("/set")  
     public String set(String key, String value) throws Exception{
+
         redisService.set(key, value);
         return "success";  
     }  

@@ -11,6 +11,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -28,7 +29,8 @@ public class RedisServiceImpl implements RedisService {
     private RedisTemplate<String, ?> redisTemplate;
 
     @Override
-    public boolean set(final String key, final String value) {
+    public boolean set(final String key, final String value) throws Exception {
+        Assert.hasText(key,"Key is not empty.");
         boolean result = redisTemplate.execute(new RedisCallback<Boolean>() {
             @Override
             public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
@@ -40,7 +42,8 @@ public class RedisServiceImpl implements RedisService {
         return result;
     }
 
-    public String get(final String key){
+    public String get(final String key) throws Exception {
+        Assert.hasText(key,"Key is not empty.");
         String result = redisTemplate.execute(new RedisCallback<String>() {
             @Override
             public String doInRedis(RedisConnection connection) throws DataAccessException {
@@ -52,7 +55,9 @@ public class RedisServiceImpl implements RedisService {
         return result;
     }
 
-    public void del(final String key){
+    public void del(final String key) throws Exception {
+        Assert.hasText(key,"Key is not empty.");
+
         redisTemplate.execute(new RedisCallback<Long>() {
             @Override
             public Long doInRedis(RedisConnection conn) throws DataAccessException {
@@ -70,13 +75,18 @@ public class RedisServiceImpl implements RedisService {
     }
 
     @Override
-    public <T> boolean setList(String key, List<T> list) {
+    public <T> boolean setList(String key, List<T> list) throws Exception {
+        Assert.hasText(key,"Key is not empty.");
+
         String value = JsonUtil.getJsonString(list);
         return set(key,value);
     }
 
     @Override
-    public <T> List<T> getList(String key,Class<T> clz) {
+    public <T> List<T> getList(String key,Class<T> clz)  throws Exception{
+
+        Assert.hasText(key,"Key is not empty.");
+
         String json = get(key);
         if(json!=null){
             List<T> list = JsonUtil.readJson2Array(json,clz);
@@ -86,7 +96,9 @@ public class RedisServiceImpl implements RedisService {
     }
 
     @Override
-    public long lpush(final String key, Object obj) {
+    public long lpush(final String key, Object obj)throws Exception {
+        Assert.hasText(key,"Key is not empty.");
+
         final String value = JsonUtil.getJsonString(obj);
         long result = redisTemplate.execute(new RedisCallback<Long>() {
             @Override
@@ -100,7 +112,9 @@ public class RedisServiceImpl implements RedisService {
     }
 
     @Override
-    public long rpush(final String key, Object obj) {
+    public long rpush(final String key, Object obj) throws Exception{
+        Assert.hasText(key,"Key is not empty.");
+
         final String value = JsonUtil.getJsonString(obj);
         long result = redisTemplate.execute(new RedisCallback<Long>() {
             @Override
@@ -114,7 +128,9 @@ public class RedisServiceImpl implements RedisService {
     }
 
     @Override
-    public void hmset(String key, Object obj) {
+    public void hmset(String key, Object obj)  throws Exception{
+        Assert.hasText(key,"Key is not empty.");
+
         Map<byte[], byte[]> data=JsonUtil.readJsonByteMap(JsonUtil.getJsonString(obj));
         redisTemplate.execute(new RedisCallback<String>() {
             @Override
@@ -127,7 +143,9 @@ public class RedisServiceImpl implements RedisService {
     }
 
     @Override
-    public <T> T hget(String key, Class<T> clz) {
+    public <T> T hget(String key, Class<T> clz)  throws Exception{
+        Assert.hasText(key,"Key is not empty.");
+
         return redisTemplate.execute(new RedisCallback<T>() {
 
             @Override
@@ -148,7 +166,9 @@ public class RedisServiceImpl implements RedisService {
     }
 
     @Override
-    public<T> List<T>  hmGetAll(String key,Class<T> clz){
+    public<T> List<T>  hmGetAll(String key,Class<T> clz) throws Exception{
+        Assert.hasText(key,"Key is not empty.");
+
         List<Map<String,Object>> dataList= new ArrayList<>();
         return redisTemplate.execute(new RedisCallback<List<T>>() {
             @Override
@@ -172,7 +192,9 @@ public class RedisServiceImpl implements RedisService {
     }
 
     @Override
-    public String lpop(final String key) {
+    public String lpop(final String key) throws Exception{
+        Assert.hasText(key,"Key is not empty.");
+
         String result = redisTemplate.execute(new RedisCallback<String>() {
             @Override
             public String doInRedis(RedisConnection connection) throws DataAccessException {
