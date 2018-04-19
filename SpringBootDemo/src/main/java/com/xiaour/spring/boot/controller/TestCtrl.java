@@ -3,13 +3,13 @@ package com.xiaour.spring.boot.controller;
 
 import com.xiaour.spring.boot.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.xiaour.spring.boot.entity.UserInfo;
 import com.xiaour.spring.boot.mapper.UserInfoMapper;
 import com.xiaour.spring.boot.utils.JsonUtil;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 
 /**
@@ -65,7 +65,7 @@ public class TestCtrl {
      * @return
      */
     @RequestMapping("/getUser/{id}")  
-    public String get(@PathVariable("id")int id){  
+    public String get(@PathVariable("id")int id){
         try {
         	UserInfo user= userInfoMapper.selectByPrimaryKey(id);
 			return JsonUtil.getJsonString(user);

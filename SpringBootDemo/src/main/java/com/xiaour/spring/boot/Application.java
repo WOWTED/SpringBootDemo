@@ -6,10 +6,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
-import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.web.servlet.ServletComponentScan;
-import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 /**
  * 
@@ -23,7 +21,7 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 @ServletComponentScan
 @EnableAutoConfiguration
 @MapperScan("com.xiaour.spring.boot.mapper")
-public class Application  extends SpringBootServletInitializer implements EmbeddedServletContainerCustomizer {
+public class Application  extends SpringBootServletInitializer {
 
 	@Value("${server.port}")
 	private int port;//应用的端口
@@ -35,12 +33,6 @@ public class Application  extends SpringBootServletInitializer implements Embedd
         SpringApplication.run(Application.class, args);
     }
 
-    /**
-     * 自定义端口
-     */
-	@Override
-	public void customize(ConfigurableEmbeddedServletContainer container) {
-		container.setPort(port);
-	}
+
 
 }
